@@ -58,7 +58,6 @@ export default {
       freeScroll: false,
       scrollbars: true
     });
-    console.log(this.iscrollTable.maxScrollX)
     this.iscrollTable.on("scroll", this.scrollTable);
     this.iscrollTable.on("beforeScrollStart", this.scrollStart);
     this.iscrollTable.on('scrollEnd', this.scrollEnd);
@@ -73,7 +72,6 @@ export default {
   methods: {
     scrollTable() {
       let iscrollTable = this.iscrollTable;
-       console.log(this.iscrollTable.maxScrollX)
       if (iscrollTable.x > 0) {
         iscrollTable.scrollTo(0, iscrollTable.y);
         return;
@@ -99,7 +97,6 @@ export default {
     scrollStart() {
       this.startx = this.iscrollTable.x;
       this.starty = this.iscrollTable.y;
-      this.iscrollTable.maxScrollX = -3000;
       this.iscrollTable.refresh();
     },
     scrollEnd() {
@@ -135,7 +132,6 @@ export default {
       overflow: hidden;
       position: relative;
       margin: 43px 0 0 53px;
-      width: 2500px;
     }
   }
   .top-left {
