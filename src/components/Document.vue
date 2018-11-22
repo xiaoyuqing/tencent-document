@@ -6,7 +6,7 @@
 				<tr class="header"><th></th><th v-for="(item, index) in headers" :key="index">{{item}}</th></tr>
 			</table>
 		</div>
-		<div class="left-fixed" :style="{height: scrollHeight + 'px',paddingTop: '43px'}">
+		<div class="table-left" :style="{height: scrollHeight + 'px'}">
 			<table id="left-table" ref="tFixedLeft">
 				<tr v-for="(item, index) in files" :key="index"><td>{{index+1}}</td></tr>
 			</table>
@@ -61,23 +61,18 @@ export default {
     this.iscrollTable.on("scroll", this.scrollTable);
     this.iscrollTable.on("beforeScrollStart", this.scrollStart);
     this.iscrollTable.on('scrollEnd', this.scrollEnd);
-    document.addEventListener(
-      "touchmove",
-      function(e) {
-        e.preventDefault();
-      },
-      false
-    );
   },
   methods: {
     scrollTable() {
       let iscrollTable = this.iscrollTable;
       if (iscrollTable.x > 0) {
         iscrollTable.scrollTo(0, iscrollTable.y);
+        this.$refs.tFixedHead.style.transform = "translateX(0px)";
         return;
       }
       if (iscrollTable.y > 0) {
         iscrollTable.scrollTo(iscrollTable.x, 0);
+        this.$refs.tFixedLeft.style.transform = "translateY(0px)";
         return;
       }
       if ((iscrollTable.y - iscrollTable.maxScrollY) > 600) {
@@ -164,12 +159,13 @@ export default {
       height: 50px;
     }
   }
-  .left-fixed {
+  .table-left {
     position: absolute;
     top: 0;
     left: 0;
     overflow: hidden;
     z-index: 99;
+    padding-top: 43px;
     table#left-table {
       tr td:first-child {
         min-width: 50px;
